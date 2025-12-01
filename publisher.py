@@ -1,6 +1,7 @@
 import pika
 import json
 
+
 class RabbitMQPublisher:
     def __init__(self) -> None:
         self.__host = "localhost"
@@ -32,6 +33,7 @@ class RabbitMQPublisher:
                 delivery_mode=2
             )
         )
-    
+
+
 rabbitMQPublisher = RabbitMQPublisher()
 rabbitMQPublisher.send_message({"message": "Hello, RabbitMQ!"})
