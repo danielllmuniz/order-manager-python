@@ -6,6 +6,16 @@ class MongoDBConnection:
     def __init__(self, config: MongoDBConfig | None = None) -> None:
         self._config = config or MongoDBConfig()
         self._client: MongoClient | None = None
+    
+    def connect(self) -> None:
+        if self._client is None:
+            self._client = MongoClient(
+                host=self._config.host,
+                port=self._config.port,
+                username=self._config.username,
+                password=self._config.password,
+            )
+            self._client.admin.command("ping")
 
     def get_connection(self) -> MongoClient:
         if self._client is None:
@@ -24,3 +34,5 @@ class MongoDBConnection:
         if self._client is not None:
             self._client.close()
             self._client = None
+
+mongo_connection = MongoDBConnection()

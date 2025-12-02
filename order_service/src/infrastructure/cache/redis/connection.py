@@ -9,6 +9,17 @@ class RedisConnection:
         self._config = config or RedisConfig()
         self._client: Redis | None = None
 
+    def connect(self) -> None:
+        if self._client is None:
+            self._client = redis.Redis(
+                host=self._config.host,
+                port=self._config.port,
+                password=self._config.password,
+                db=self._config.db,
+                decode_responses=self._config.decode_responses,
+            )
+            self._client.ping()
+
     def get_connection(self) -> Redis:
         if self._client is None:
             self._client = redis.Redis(
@@ -24,3 +35,5 @@ class RedisConnection:
         if self._client is not None:
             self._client.close()
             self._client = None
+
+redis_connection = RedisConnection()
