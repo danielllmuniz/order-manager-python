@@ -8,7 +8,7 @@
         "**/__pycache__": true,
         "**/*.pytest_cache": true
     },
-    "python.analysis.extraPaths": [
-        "./application-service"
-    ]
+    // "python.analysis.extraPaths": [
+    //     "./src",
+    // ]
 }

@@ -1,8 +1,6 @@
 import pika
 
 from order_service.src.infrastructure.messaging.rabbitmq.config import RabbitMQConfig
-
-
 class RabbitMQConnection:
     def __init__(self, config: RabbitMQConfig | None = None) -> None:
         self._config = config or RabbitMQConfig()
