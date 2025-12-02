@@ -1,6 +1,5 @@
 import pika
 
-
 class OrderServiceInfrastructure:
     EXCHANGE_NAME = "orders_exchange"
     EXCHANGE_TYPE = "topic"

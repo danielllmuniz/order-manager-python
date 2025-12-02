@@ -1,6 +1,6 @@
 import pika
 
-from src.infrastructure.messaging.rabbitmq.config import RabbitMQConfig
+from order_service.src.infrastructure.messaging.rabbitmq.config import RabbitMQConfig
 
 
 class RabbitMQConnection:

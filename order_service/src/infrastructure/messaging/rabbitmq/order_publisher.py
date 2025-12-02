@@ -1,7 +1,7 @@
-import pika
 import json
+import pika
 
-from src.infrastructure.messaging.rabbitmq.infrastructure import OrderServiceInfrastructure
+from order_service.src.infrastructure.messaging.rabbitmq.order_infrastructure import OrderServiceInfrastructure
 
 class OrderPublisher:
     def __init__(self, channel: pika.channel.Channel) -> None:
@@ -20,14 +20,12 @@ class OrderPublisher:
             )
         )
 
-    def publish_order_created(self, order_id: str, customer_email: str, total: float) -> None:
+    def publish_order_created(self, order_id: str) -> None:
         self._publish(
             routing_key=self._routing_keys["created"],
             body={
                 "event": "order_created",
                 "order_id": order_id,
-                "customer_email": customer_email,
-                "total": total
             }
         )
 
