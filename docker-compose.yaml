@@ -29,10 +29,23 @@ services:
     networks:
       - my-network
 
+  redis:
+    image: redis:7-alpine
+    container_name: python-order-service-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - my-network
+    command: redis-server --appendonly yes --requirepass redis_password
+
 volumes:
   mongodb_data:
     driver: local
   rabbitmq_data:
+    driver: local
+  redis_data:
     driver: local
 
 networks:
