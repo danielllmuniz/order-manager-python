@@ -1,9 +1,10 @@
 import json
 import pika
 
+from order_service.src.domain.interfaces.order_publisher import IOrderPublisher
 from order_service.src.infrastructure.messaging.rabbitmq.order_infrastructure import OrderServiceInfrastructure
 
-class OrderPublisher:
+class OrderPublisher(IOrderPublisher):
     def __init__(self, channel: pika.channel.Channel) -> None:
         self._channel = channel
         self._exchange = OrderServiceInfrastructure.EXCHANGE_NAME

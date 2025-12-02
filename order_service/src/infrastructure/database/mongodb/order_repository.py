@@ -1,11 +1,12 @@
 from datetime import datetime
 from bson.objectid import ObjectId
 
+from order_service.src.domain.interfaces.order_repository import IOrderRepository
 from order_service.src.infrastructure.database.mongodb.connection import MongoDBConnection
 from order_service.src.infrastructure.database.mongodb.order import Order, OrderStatus
 
 
-class OrderRepository:
+class OrderRepository(IOrderRepository):
     COLLECTION_NAME = "orders"
 
     def __init__(self, connection: MongoDBConnection) -> None:

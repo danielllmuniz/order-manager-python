@@ -1,10 +1,11 @@
 import json
 from typing import Any, Optional
 
+from order_service.src.domain.interfaces.redis_repository import IRedisRepository
 from order_service.src.infrastructure.cache.redis.connection import RedisConnection
 
 
-class RedisRepository:
+class RedisRepository(IRedisRepository):
     def __init__(self, connection: RedisConnection) -> None:
         self._connection = connection
         self._client = self._connection.get_connection()
