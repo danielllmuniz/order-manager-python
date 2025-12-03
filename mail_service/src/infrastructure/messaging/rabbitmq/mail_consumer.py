@@ -32,6 +32,7 @@ class MailConsumer:
         self,
         channel: pika.channel.Channel,
         method: pika.spec.Basic.Deliver,
+        properties: pika.spec.BasicProperties,
         body: bytes
     ) -> None:
         try:
