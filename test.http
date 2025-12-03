@@ -6,3 +6,14 @@ GET http://localhost:5000/health
 POST http://localhost:5000/orders
 Content-Type: application/json
 
+###
+### Buscar pedido por ID
+### Substitua {order_id} pelo ID retornado na criação
+GET http://localhost:5000/orders/{order_id}
+
+###
+### Mudar status do pedido
+### Substitua {order_id} pelo ID retornado na criação
+PATCH http://localhost:5000/orders/{order_id}/status
+Content-Type: application/json
+

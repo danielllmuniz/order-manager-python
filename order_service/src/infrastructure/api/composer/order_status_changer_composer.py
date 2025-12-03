@@ -25,4 +25,4 @@ def order_status_changer_composer():
         cache
     )
 
-    return usecase
+    return usecase, logger

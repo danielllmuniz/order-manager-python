@@ -21,4 +21,4 @@ def order_getter_composer():
         cache
     )
 
-    return usecase
+    return usecase, logger
