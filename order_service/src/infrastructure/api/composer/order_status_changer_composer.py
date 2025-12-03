@@ -6,11 +6,10 @@ from order_service.src.infrastructure.messaging.rabbitmq.connection import rabbi
 from order_service.src.infrastructure.messaging.rabbitmq.order_publisher import OrderPublisher
 from order_service.src.infrastructure.logging.config import LoggingConfig
 from order_service.src.infrastructure.logging.python_logger import PythonLogger
-from order_service.src.application.use_cases.create_order_use_case import CreateOrderUseCase
-from order_service.src.infrastructure.api.controller.order_creator_controller import OrderCreatorController
+from order_service.src.application.use_cases.change_order_status_use_case import ChangeOrderStatusUseCase
 
-def order_creator_composer():
-    # Setup logging
+
+def order_status_changer_composer():
     logging_config = LoggingConfig()
     logging_config.setup_logging()
     logger = PythonLogger(__name__)
@@ -19,13 +18,11 @@ def order_creator_composer():
     cache = RedisRepository(redis_connection)
     messaging = OrderPublisher(rabbitmq_connection)
 
-    usecase = CreateOrderUseCase(
+    usecase = ChangeOrderStatusUseCase(
         database,
         messaging,
         logger,
         cache
     )
 
-    controller = OrderCreatorController(usecase)
-
-    return controller
+    return usecase
