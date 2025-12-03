@@ -8,6 +8,7 @@ class MailServiceInfrastructure:
 
     BINDINGS = [
         "orders.created",
+        "orders.updated",
         "orders.cancelled",
     ]
 
