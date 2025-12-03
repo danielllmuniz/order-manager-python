@@ -26,6 +26,6 @@ def order_creator_composer():
         cache
     )
 
-    controller = OrderCreatorController(usecase)
+    controller = OrderCreatorController(usecase, logger)
 
     return controller
