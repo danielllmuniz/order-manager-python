@@ -40,6 +40,51 @@ services:
       - my-network
     command: redis-server --appendonly yes --requirepass redis_password
 
+  order-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.order-service
+    container_name: python-order-service-api
+    ports:
+      - "5000:5000"
+    environment:
+      MONGODB_HOST: mongodb
+      MONGODB_PORT: 27017
+      MONGODB_USERNAME: admin
+      MONGODB_PASSWORD: admin
+      MONGODB_DATABASE: order-service
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: redis_password
+      REDIS_DB: 0
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: admin
+      RABBITMQ_PASSWORD: admin
+    depends_on:
+      - mongodb
+      - rabbitmq
+      - redis
+    networks:
+      - my-network
+    restart: unless-stopped
+
+  mail-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.mail-service
+    container_name: python-mail-service
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: admin
+      RABBITMQ_PASSWORD: admin
+    depends_on:
+      - rabbitmq
+    networks:
+      - my-network
+    restart: unless-stopped
+
 volumes:
   mongodb_data:
     driver: local
