@@ -4,6 +4,7 @@ from typing import Any, Optional
 from order_service.src.application.ports.logger import ILogger
 from order_service.src.domain.interfaces.redis_repository import IRedisRepository
 from order_service.src.infrastructure.cache.redis.connection import RedisConnection
+from order_service.src.infrastructure.cache.json_encoder import CustomJSONEncoder
 
 
 class RedisRepository(IRedisRepository):
@@ -17,7 +18,7 @@ class RedisRepository(IRedisRepository):
             if isinstance(value, str):
                 data = value
             else:
-                data = json.dumps(value)
+                data = json.dumps(value, cls=CustomJSONEncoder)
 
             self._client.set(key, data, ex=ttl)
             if self._logger:
