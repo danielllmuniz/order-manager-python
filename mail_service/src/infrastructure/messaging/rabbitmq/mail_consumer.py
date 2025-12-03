@@ -32,7 +32,6 @@ class MailConsumer:
         self,
         channel: pika.channel.Channel,
         method: pika.spec.Basic.Deliver,
-        properties: pika.spec.BasicProperties,
         body: bytes
     ) -> None:
         try:
@@ -79,7 +78,7 @@ class MailConsumer:
         status = message.get("status")
 
         logger.info(f"Sending order update email for order {order_id} with status {status}")
-        print(f"  ✉ Enviando email de atualização de pedido")
+        print("  ✉ Enviando email de atualização de pedido")
         print(f"    Pedido: {order_id} | Novo Status: {status}")
 
     def _send_cancellation_email(self, message: dict) -> None:
@@ -87,5 +86,5 @@ class MailConsumer:
         reason = message.get("reason")
 
         logger.info(f"Sending order cancellation email for order {order_id}")
-        print(f"  ✉ Enviando email de cancelamento")
+        print("  ✉ Enviando email de cancelamento")
         print(f"    Pedido: {order_id} | Motivo: {reason}")
