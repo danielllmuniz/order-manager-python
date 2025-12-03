@@ -16,7 +16,7 @@ def order_status_changer_composer():
 
     database = OrderRepository(mongo_connection, logger)
     cache = RedisRepository(redis_connection, logger)
-    messaging = OrderPublisher(rabbitmq_connection, logger)
+    messaging = OrderPublisher(rabbitmq_connection.create_channel(), logger)
 
     usecase = ChangeOrderStatusUseCase(
         database,
