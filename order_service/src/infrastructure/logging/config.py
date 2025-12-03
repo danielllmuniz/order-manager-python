@@ -24,6 +24,10 @@ class LoggingConfig:
         logger = logging.getLogger()
         logger.setLevel(self.get_log_level())
 
+        # Remove existing handlers to avoid duplicates
+        for handler in logger.handlers[:]:
+            logger.removeHandler(handler)
+
         log_dir = os.path.dirname(self.log_file)
         if log_dir and not os.path.exists(log_dir):
             os.makedirs(log_dir, exist_ok=True)

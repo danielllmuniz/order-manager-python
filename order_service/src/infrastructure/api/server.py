@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from order_service.src.infrastructure.database.mongodb.connection import mongo_connection
 from order_service.src.infrastructure.cache.redis.connection import redis_connection
@@ -6,23 +7,30 @@ from order_service.src.infrastructure.api.order_routes import order_route_bp
 from order_service.src.infrastructure.logging.config import LoggingConfig
 from order_service.src.infrastructure.logging.python_logger import PythonLogger
 
-logging_config = LoggingConfig()
-logging_config.setup_logging()
+if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+    logging_config = LoggingConfig()
+    logging_config.setup_logging()
+
 logger = PythonLogger(__name__)
 
-logger.info("Initializing application...")
+if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+    logger.info("Initializing application...")
 
-logger.info("Connecting to MongoDB...")
-mongo_connection.connect()
-logger.info("MongoDB connected successfully")
+    logger.info("Connecting to MongoDB...")
+    mongo_connection.connect()
+    logger.info("MongoDB connected successfully")
 
-logger.info("Connecting to Redis...")
-redis_connection.connect()
-logger.info("Redis connected successfully")
+    logger.info("Connecting to Redis...")
+    redis_connection.connect()
+    logger.info("Redis connected successfully")
 
-logger.info("Connecting to RabbitMQ...")
-rabbitmq_connection.connect()
-logger.info("RabbitMQ connected successfully")
+    logger.info("Connecting to RabbitMQ...")
+    rabbitmq_connection.connect()
+    logger.info("RabbitMQ connected successfully")
+else:
+    mongo_connection.connect()
+    redis_connection.connect()
+    rabbitmq_connection.connect()
 
 app = Flask(__name__)
 
@@ -37,4 +45,5 @@ def health():
 
 app.register_blueprint(order_route_bp)
 
-logger.info("Application initialized successfully")
+if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+    logger.info("Application initialized successfully")
