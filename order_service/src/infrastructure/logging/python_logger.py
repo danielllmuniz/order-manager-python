@@ -1,6 +1,6 @@
 import logging
 
-from ...domain.interfaces.logger import ILogger
+from ...application.ports.logger import ILogger
 
 
 class PythonLogger(ILogger):
