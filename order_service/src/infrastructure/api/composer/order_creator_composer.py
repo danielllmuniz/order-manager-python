@@ -15,9 +15,9 @@ def order_creator_composer():
     logging_config.setup_logging()
     logger = PythonLogger(__name__)
 
-    database = OrderRepository(mongo_connection)
-    cache = RedisRepository(redis_connection)
-    messaging = OrderPublisher(rabbitmq_connection)
+    database = OrderRepository(mongo_connection, logger)
+    cache = RedisRepository(redis_connection, logger)
+    messaging = OrderPublisher(rabbitmq_connection, logger)
 
     usecase = CreateOrderUseCase(
         database,

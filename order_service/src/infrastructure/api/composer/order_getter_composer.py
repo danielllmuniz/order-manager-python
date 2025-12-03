@@ -12,8 +12,8 @@ def order_getter_composer():
     logging_config.setup_logging()
     logger = PythonLogger(__name__)
 
-    database = OrderRepository(mongo_connection)
-    cache = RedisRepository(redis_connection)
+    database = OrderRepository(mongo_connection, logger)
+    cache = RedisRepository(redis_connection, logger)
 
     usecase = GetOrderUseCase(
         database,
