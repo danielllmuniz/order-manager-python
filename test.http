@@ -9,11 +9,11 @@ Content-Type: application/json
 ###
 ### Buscar pedido por ID
 ### Substitua {order_id} pelo ID retornado na criação
-GET http://localhost:5000/orders/693032d181c719b15a9d67b5
+GET http://localhost:5000/orders/6930357c7bbff00c25cb94b5
 
 ###
 ### Mudar status do pedido
 ### Substitua {order_id} pelo ID retornado na criação
-PATCH http://localhost:5000/orders/693032d181c719b15a9d67b5/status
+PATCH http://localhost:5000/orders/6930357c7bbff00c25cb94b5/status
 Content-Type: application/json
 
